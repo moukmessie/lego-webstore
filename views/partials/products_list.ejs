@@ -9,6 +9,10 @@
     <hr/>
 
     <p class="lead">Catégorie</p>
+    <% data.forEach(function (name) {%>
+    <input type="checkbox" name="category" value=""> <%= name.name %><br>
+
+   <% }) ;%>
 
     <hr/>
 
@@ -18,7 +22,20 @@
   </div>
 
   <!-- Liste -->
-  <div class="col-lg-9 border-left">
-    
+  <div class="col-lg-9 border-left card-columns">
+      <% products.forEach(function (product){%>
+        <div class="card">
+
+          <img class="card-img-top" src="<%=product.image%>" alt=""  style="padding:1em">
+          <div class="card-body">
+            <h6 class="card-subtitle text-muted"><%=product.name_cat%></h6>
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="font-weight-light float-left" style="font-size: 1.5em "><%=product.price%>€</p>
+            <p class="float-right">
+              <a href="/products/<%=product.id%>" class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
+            </p>
+          </div>
+        </div>
+    <%})%>
   </div>
 </div>

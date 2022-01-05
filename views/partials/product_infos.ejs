@@ -1,1 +1,104 @@
-<p>Produit : <%- id %></p>
+
+
+<div id="product">
+    <div>
+        <div class="product-images">
+
+            <img  src="<%- product.img1%>" id="post" alt="">
+
+            <div class="product-miniatures ">
+                <div>
+                    <img class="thumbnail activ" src="<%-product.img2%>" alt="">
+                </div>
+                <div>
+                    <img  class="thumbnail" src="<%-product.img3%>" alt="">
+                </div>
+                <div>
+                    <img class="thumbnail" src="<%-product.img1%>" alt="">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="product-infos">
+            <p class="product-category"></p>
+            <h1><%-product.name%></h1>
+            <p class="product-pice"><%-product.price%> €</p>
+
+            <form method="post" >
+            <button id="less" type="button">-</button>
+            <button  id="qte" type="button">1</button>
+            <button id="more" type="button">+</button>
+            <input type="submit" value="Ajouter au panier">
+            <input type="hidden" id="quantity" name="quantity" value="1">
+            <input type="hidden"  name="price" value="<%-product.price%>">
+            <input type="hidden"  name="product_name" value="<%-product.name%>">
+
+            </form>
+            <div class="box error" id="alert" >
+                Quantité maximale autorisée !
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="product-spec">
+            <h2>Spécificités</h2>
+            <%-product.spec%>
+        </div>
+
+
+    </div>
+
+</div>
+<div>
+    <h2 id="pw">Déscription</h2>
+    <%-product.description%>
+</div>
+
+
+<script>
+    let thumbnail = document.getElementsByClassName('thumbnail');
+
+    // let activeImages = document.getElementsByClassName('activ')
+
+    //button more-less and qte
+    let more = document.getElementById('more');
+    let less = document.getElementById('less');
+    let qte = document.getElementById('qte');
+    let warn = document.getElementById('alert');
+    let quantity = document.getElementById('quantity');
+    let qteMax = 5;
+
+    for (let i = 0; i < thumbnail.length; i++) {
+        thumbnail[i].addEventListener('click', function () {
+            this.classList.add('activ')
+            document.getElementById('post').src = this.src
+        })
+    }
+    warn.style.visibility = 'hidden'
+    console.log(quantity)
+
+    // more product
+    more.addEventListener('click', function () {
+        // console.log("clique");
+        if (qte.textContent < qteMax) {
+
+            qte.textContent = parseInt(qte.textContent) + 1;
+            quantity.value = qte.textContent;
+            // console.log(parseInt(qte.textContent));
+            if (qte.textContent == qteMax) {
+                warn.style.visibility = 'visible'
+
+            }
+        }
+    })
+    //less product
+    less.addEventListener("click", function () {
+        if (qte.textContent > 1) {
+            qte.textContent = parseInt(qte.textContent) - 1;
+            quantity.value = qte.textContent;
+            warn.style.visibility = 'hidden'
+        }
+    })
+
+</script>
